@@ -1,15 +1,21 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import Users from "./components/Users"
 import Login from "./components/Login"
 import "./style.css"
-class App extends Component {
+import Api from "./components/Api"
+
+class App extends React.Component {
+
     render() {
+
         return (
-            <div className="container">
-            <Login/>
-            <Users/>
+            <div className="App">
+                <Login/>
+                <Api/>
+                <Users/>
             </div>
         );
+
     }
 }
 

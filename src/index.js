@@ -1,11 +1,15 @@
-import "./style.css"
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from "./App"
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-);
+const renderApp = <h3><App/></h3>
+ReactDOM.render(renderApp, document.getElementById('root'))
+
+
+
+
+
+
+
 
 
