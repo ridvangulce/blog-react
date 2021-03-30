@@ -1,22 +1,41 @@
-import React, {useState, useEffect} from 'react';
-import Users from "./components/Users"
+import React, {useEffect, useState} from 'react';
 import Login from "./components/Login"
 import "./style.css"
-import Api from "./components/Api"
+import {Users} from "./components/Users"
+import axios from "axios";
 
-class App extends React.Component {
+function App() {
+    const [users, setUsers] = useState([]);
+    const [email, setEmail] = useState([]);
+    const instance = axios.create({
+        baseURL: 'http://localhost:5000'
+    })
+    useEffect(() => {
+        axios.post("/api", {
+            name: users,
+            email: email,
+        }).then(res => {
+            setUsers(res.data)
+            setEmail(res.data)
+        });
+    }, []);
+    useEffect(() => {
+        axios.get("/api")
+            .then(res => {
+                setUsers(res.data)
+                console.log(res)
+            });
+    }, []);
 
-    render() {
 
-        return (
-            <div className="App">
-                <Login/>
-                <Api/>
-                <Users/>
-            </div>
-        );
+    return (
+        <div>
+            <Login/>
+            <Users users={users}/>
+        </div>
+    );
 
-    }
+
 }
 
 export default App;

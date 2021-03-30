@@ -1,18 +1,20 @@
-import React, {Component} from 'react';
+import React from "react"
 
-class Users extends Component {
-    render() {
-        return (
-            <div className="users">
-                <h1>
-                    <h2>USER LIST</h2>
-                    <ul>
+export const Users = ({users}) => {
+    return (
+        <div>
+            {users.map(user => {
+                return(
+                    <ul key={user.id}>
+                        <li>{user.id}</li>
+                        <li>{user.name}</li>
+                        <li>{user.email}</li>
+
 
                     </ul>
-                </h1>
-            </div>
-        );
-    }
-}
+                );
+            })};
+        </div>
 
-export default Users;
+    )
+}

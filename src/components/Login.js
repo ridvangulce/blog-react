@@ -1,20 +1,25 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import "../style.css"
 
-class Login extends Component {
-    render() {
-        return (
-            <div className="login">
-                <h1>
 
-                <h2>ENTER YOUR DETAILS</h2>
-                USERNAME: <input type="text"/> <br/>
-                PASSWORD: <input type="password"/> <br/>
-                <button type="submit">SIGN UP</button>
-                </h1>
+function Login() {
+    return (
 
-            </div>
-        );
-    }
+        <div className="login">
+            <form>
+                <h3>ENTER YOUR DETAILS</h3>
+                <label>
+                    USERNAME: <input type="text" className="postUsers"/> <br/>
+                    EMAIL: <input type="email" className="email"/> <br/>
+                </label>
+                <button type="submit" className="button">SIGN UP</button>
+                <div>
+                </div>
+
+            </form>
+        </div>
+    );
 }
 
 export default Login;
