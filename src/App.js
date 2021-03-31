@@ -5,20 +5,15 @@ import {Users} from "./components/Users"
 import axios from "axios";
 
 function App() {
+    const [addUserEmail, setAddUserEmail] = useState('')
+    const [addUser, setAddUser] = useState('')
     const [users, setUsers] = useState([]);
-    const [email, setEmail] = useState([]);
+
     const instance = axios.create({
+
         baseURL: 'http://localhost:5000'
     })
-    useEffect(() => {
-        axios.post("/api", {
-            name: users,
-            email: email,
-        }).then(res => {
-            setUsers(res.data)
-            setEmail(res.data)
-        });
-    }, []);
+
     useEffect(() => {
         axios.get("/api")
             .then(res => {
@@ -26,14 +21,36 @@ function App() {
                 console.log(res)
             });
     }, []);
+    const handleFormChange = (addUser) => {
+        setAddUser(addUser)
+    }
+    const emailHandleFormChange = (addUserEmail) => {
+        setAddUserEmail(addUserEmail)
+    }
+
+
+    const handleFormSubmit = () => {
+        axios.post('/api/create', {
+            name: addUser,
+            email: addUserEmail
+        })
+            .then(res => {
+                setAddUser(res.data)
+                setAddUserEmail(res.data)
+            })
+
+            .then(message => console.log(message))
+    }
 
 
     return (
         <div>
-            <Login/>
+            <Login addUser={addUser} addUserEmail={addUserEmail} handleFormSubmit={handleFormSubmit}
+                   handleFormChange={handleFormChange}
+                   emailHandleFormChange={emailHandleFormChange}/>
             <Users users={users}/>
         </div>
-    );
+    )
 
 
 }

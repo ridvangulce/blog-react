@@ -1,25 +1,48 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React from 'react';
 import "../style.css"
 
 
-function Login() {
-    return (
+export const Login = ({handleFormSubmit, addUser, addUserEmail, handleFormChange, emailHandleFormChange}) => {
+    const handleChange = (event) => {
+        handleFormChange(event.target.value)
+    }
+    const emailHandleChange = (event) => {
+        emailHandleFormChange(event.target.value)
+    }
+    const emailHandleSubmit = (event) => {
+        event.preventDefault()
+        handleFormSubmit()
+    }
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        handleFormSubmit()
+    }
 
-        <div className="login">
-            <form>
-                <h3>ENTER YOUR DETAILS</h3>
-                <label>
-                    USERNAME: <input type="text" className="postUsers"/> <br/>
-                    EMAIL: <input type="email" className="email"/> <br/>
-                </label>
+    {
+        return (
+
+            <div className="login">
+                <form onSubmit={handleSubmit}>
+                    <h3>ENTER YOUR DETAILS</h3>
+                    <label>
+                        USERNAME: <input type="text" className="name" value={addUser} onChange={handleChange}/> <br/>
+                    </label>
+                </form>
+
+                <form onSubmit={emailHandleSubmit}>
+                    <label>
+                        EMAIL: <input type="email" className="email" value={addUserEmail} onChange={emailHandleChange}/>
+                        <br/>
+                    </label>
+                </form>
                 <button type="submit" className="button">SIGN UP</button>
                 <div>
                 </div>
 
-            </form>
-        </div>
-    );
+            </div>
+        );
+    }
 }
+
 
 export default Login;

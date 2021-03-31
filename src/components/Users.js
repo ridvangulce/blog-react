@@ -6,14 +6,13 @@ export const Users = ({users}) => {
             {users.map(user => {
                 return(
                     <ul key={user.id}>
-                        <li>{user.id}</li>
                         <li>{user.name}</li>
                         <li>{user.email}</li>
 
 
                     </ul>
-                );
-            })};
+                )
+            })}
         </div>
 
     )
