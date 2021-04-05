@@ -2,18 +2,19 @@ import React from 'react';
 import "../style.css"
 
 
-export const Login = ({handleFormSubmit, addUser, addUserEmail, handleFormChange, emailHandleFormChange}) => {
+const Login = ({handleFormSubmit, addUser, addUserEmail, handleFormChange, emailHandleFormChange}) => {
     const handleChange = (event) => {
         handleFormChange(event.target.value)
     }
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        handleFormSubmit()
+    }
+
     const emailHandleChange = (event) => {
         emailHandleFormChange(event.target.value)
     }
     const emailHandleSubmit = (event) => {
-        event.preventDefault()
-        handleFormSubmit()
-    }
-    const handleSubmit = (event) => {
         event.preventDefault()
         handleFormSubmit()
     }
@@ -33,11 +34,12 @@ export const Login = ({handleFormSubmit, addUser, addUserEmail, handleFormChange
                     <label>
                         EMAIL: <input type="email" className="email" value={addUserEmail} onChange={emailHandleChange}/>
                         <br/>
+                        <input type="submit"/>
+
                     </label>
                 </form>
-                <button type="submit" className="button">SIGN UP</button>
-                <div>
-                </div>
+
+
 
             </div>
         );

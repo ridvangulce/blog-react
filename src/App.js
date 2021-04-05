@@ -9,18 +9,6 @@ function App() {
     const [addUser, setAddUser] = useState('')
     const [users, setUsers] = useState([]);
 
-    const instance = axios.create({
-
-        baseURL: 'http://localhost:5000'
-    })
-
-    useEffect(() => {
-        axios.get("/api")
-            .then(res => {
-                setUsers(res.data)
-                console.log(res)
-            });
-    }, []);
     const handleFormChange = (addUser) => {
         setAddUser(addUser)
     }
@@ -28,7 +16,9 @@ function App() {
         setAddUserEmail(addUserEmail)
     }
 
-
+    const instance = axios.create({
+        baseURL: 'http://localhost:5000'
+    })
     const handleFormSubmit = () => {
         axios.post('/api/create', {
             name: addUser,
@@ -37,14 +27,29 @@ function App() {
             .then(res => {
                 setAddUser(res.data)
                 setAddUserEmail(res.data)
+                latestUser()
             })
+    }
+    useEffect(() => {
+        axios.get("/api")
+            .then(res => {
+                setUsers(res.data)
+                console.log(res)
+            });
+    }, []);
+    const latestUser = () => {
+        axios.get("/api")
+            .then(res => {
+                setUsers(res.data)
+                console.log(res)
+            });
 
-            .then(message => console.log(message))
     }
 
 
     return (
         <div>
+
             <Login addUser={addUser} addUserEmail={addUserEmail} handleFormSubmit={handleFormSubmit}
                    handleFormChange={handleFormChange}
                    emailHandleFormChange={emailHandleFormChange}/>

@@ -1,5 +1,4 @@
 import React from "react"
-
 export const Users = ({users}) => {
     return (
         <div>
@@ -8,7 +7,6 @@ export const Users = ({users}) => {
                     <ul key={user.id}>
                         <li>{user.name}</li>
                         <li>{user.email}</li>
-
 
                     </ul>
                 )
