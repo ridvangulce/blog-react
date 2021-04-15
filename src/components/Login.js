@@ -1,50 +1,27 @@
 import React from 'react';
-import "../style.css"
 
+const Login = () => {
 
-const Login = ({handleFormSubmit, addUser, addUserEmail, handleFormChange, emailHandleFormChange}) => {
-    const handleChange = (event) => {
-        handleFormChange(event.target.value)
-    }
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        handleFormSubmit()
-    }
+    return (
+        <div>
 
-    const emailHandleChange = (event) => {
-        emailHandleFormChange(event.target.value)
-    }
-    const emailHandleSubmit = (event) => {
-        event.preventDefault()
-        handleFormSubmit()
-    }
-
-    {
-        return (
-
-            <div className="login">
-                <form onSubmit={handleSubmit}>
-                    <h3>ENTER YOUR DETAILS</h3>
+                <form>
                     <label>
-                        USERNAME: <input type="text" className="name" value={addUser} onChange={handleChange}/> <br/>
+                        USERNAME:<input type="text" className="name" placeholder="Username"/>
                     </label>
                 </form>
 
-                <form onSubmit={emailHandleSubmit}>
+                <form>
                     <label>
-                        EMAIL: <input type="email" className="email" value={addUserEmail} onChange={emailHandleChange}/>
-                        <br/>
-                        <input type="submit"/>
-
+                        PASSWORD:<input type="password" className="password" placeholder="Password"/>
                     </label>
+                    <br/>
+                    <input type="submit"/>
                 </form>
 
+        </div>
+    );
 
 
-            </div>
-        );
-    }
 }
-
-
 export default Login;

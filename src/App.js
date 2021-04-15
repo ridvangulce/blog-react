@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import Login from "./components/Login"
+import Register from "./components/Register"
 import "./style.css"
 import {Users} from "./components/Users"
+import Login from "./components/Login"
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import axios from "axios";
 
 function App() {
+
+    const [addUserPassword, setAddUserPassword] = useState('')
     const [addUserEmail, setAddUserEmail] = useState('')
     const [addUser, setAddUser] = useState('')
     const [users, setUsers] = useState([]);
@@ -15,18 +19,24 @@ function App() {
     const emailHandleFormChange = (addUserEmail) => {
         setAddUserEmail(addUserEmail)
     }
+    const passwordHandleFormChange = (addUserPassword) => {
+        setAddUserPassword(addUserPassword)
+    }
 
-    const instance = axios.create({
+
+    const base = axios.create({
         baseURL: 'http://localhost:5000'
     })
     const handleFormSubmit = () => {
-        axios.post('/api/create', {
+        axios.post('/register', {
             name: addUser,
-            email: addUserEmail
+            email: addUserEmail,
+            password: addUserPassword
         })
             .then(res => {
                 setAddUser(res.data)
                 setAddUserEmail(res.data)
+                setAddUserPassword(res.data)
                 latestUser()
             })
     }
@@ -48,13 +58,34 @@ function App() {
 
 
     return (
-        <div>
+        <Router>
+            <div>
+                <Switch>
 
-            <Login addUser={addUser} addUserEmail={addUserEmail} handleFormSubmit={handleFormSubmit}
-                   handleFormChange={handleFormChange}
-                   emailHandleFormChange={emailHandleFormChange}/>
-            <Users users={users}/>
-        </div>
+                    <Route path="/register">
+                        <Register addUser={addUser}
+                                  addUserEmail={addUserEmail}
+                                  addUserPassword={addUserPassword}
+                                  handleFormChange={handleFormChange}
+                                  emailHandleFormChange={emailHandleFormChange}
+                                  passwordHandleFormChange={passwordHandleFormChange}
+                                  handleFormSubmit={handleFormSubmit}
+                        />
+                        <Users users={users}/>
+                    </Route>
+                </Switch>
+                <Switch>
+                    <Route path="/login">
+                        <Login
+                            handleFormSubmit={handleFormSubmit}
+
+                        />
+                    </Route>
+                </Switch>
+
+            </div>
+        </Router>
+
     )
 
 
