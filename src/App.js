@@ -1,26 +1,37 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Register from "./components/Register"
 import "./style.css"
 import {Users} from "./components/Users"
 import Login from "./components/Login"
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom"
 import axios from "axios";
 
 function App() {
 
-    const [addUserPassword, setAddUserPassword] = useState('')
-    const [addUserEmail, setAddUserEmail] = useState('')
-    const [addUser, setAddUser] = useState('')
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
     const [users, setUsers] = useState([]);
+    const [checkUser, setCheckUser] = useState('')
+    const [checkPassword, setCheckPassword] = useState('')
 
-    const handleFormChange = (addUser) => {
-        setAddUser(addUser)
+
+    //Add User
+    const handleFormChange = (name) => {
+        setName(name)
     }
-    const emailHandleFormChange = (addUserEmail) => {
-        setAddUserEmail(addUserEmail)
+    const emailHandleFormChange = (email) => {
+        setEmail(email)
     }
-    const passwordHandleFormChange = (addUserPassword) => {
-        setAddUserPassword(addUserPassword)
+    const passwordHandleFormChange = (password) => {
+        setPassword(password)
+    }
+    //Check User
+    const checkHandleFormChange = (checkUser) => {
+        setCheckUser(checkUser)
+    }
+    const checkPasswordHandleFormChange = (checkPassword) => {
+        setCheckPassword(checkPassword)
     }
 
 
@@ -29,66 +40,104 @@ function App() {
     })
     const handleFormSubmit = () => {
         axios.post('/register', {
-            name: addUser,
-            email: addUserEmail,
-            password: addUserPassword
+            name: name,
+            email: email,
+            password: password
         })
             .then(res => {
-                setAddUser(res.data)
-                setAddUserEmail(res.data)
-                setAddUserPassword(res.data)
+                setName(res.data)
+                setEmail(res.data)
+                setPassword(res.data)
                 latestUser()
+
+            })
+            .then(data => {
+                console.log(data)
+                sessionStorage.setItem("token", "2o1£21ıoj2£#31ı12k3130o210*321")
+
+            })
+
+            .catch(error => {
+                console.log("There is some error !!!!", error)
             })
     }
-    useEffect(() => {
-        axios.get("/api")
+    const handleFormLogin = () => {
+        axios.post('/login', {
+            name: checkUser,
+            password: checkPassword
+        })
             .then(res => {
-                setUsers(res.data)
-                console.log(res)
-            });
-    }, []);
+                setCheckUser(res.data)
+                setCheckPassword(res.data)
+            })
+            .then(data => {
+                    console.log(data)
+                    sessionStorage.getItem('2o1£21ıoj2£#31ı12k3130o210*321')
+                }
+            )
+
+            .catch(error => {
+                console.log("there is some error", error)
+            })
+
+
+    }
+
+    const handleFormLogout = () => {
+        axios.post('/logout')
+            .then(data => {
+                    sessionStorage.removeItem('2o1£21ıoj2£#31ı12k3130o210*321')
+                }
+            )
+            .catch(error => {
+                console.log("there is some error", error)
+
+            })
+    }
+
+
     const latestUser = () => {
         axios.get("/api")
             .then(res => {
                 setUsers(res.data)
-                console.log(res)
             });
 
     }
 
 
     return (
-        <Router>
-            <div>
-                <Switch>
-
-                    <Route path="/register">
-                        <Register addUser={addUser}
-                                  addUserEmail={addUserEmail}
-                                  addUserPassword={addUserPassword}
-                                  handleFormChange={handleFormChange}
-                                  emailHandleFormChange={emailHandleFormChange}
-                                  passwordHandleFormChange={passwordHandleFormChange}
-                                  handleFormSubmit={handleFormSubmit}
-                        />
-                        <Users users={users}/>
-                    </Route>
-                </Switch>
-                <Switch>
-                    <Route path="/login">
-                        <Login
-                            handleFormSubmit={handleFormSubmit}
-
-                        />
-                    </Route>
-                </Switch>
-
-            </div>
-        </Router>
-
+        <div>
+            <Router>
+                <div>
+                    <Switch>
+                        <Route path="/register" component={Register}>
+                            <Register
+                                name={name}
+                                email={email}
+                                password={password}
+                                handleFormChange={handleFormChange}
+                                emailHandleFormChange={emailHandleFormChange}
+                                passwordHandleFormChange={passwordHandleFormChange}
+                                handleFormSubmit={handleFormSubmit}
+                            />
+                            <Users users={users}/>
+                        </Route>
+                        <Route path="/login" component={Login}>
+                            <Login
+                                checkPassword={checkPassword}
+                                checkUser={checkUser}
+                                handleFormSubmit={handleFormSubmit}
+                                handleFormLogin={handleFormLogin}
+                                checkHandleFormChange={checkHandleFormChange}
+                                checkPasswordHandleFormChange={checkPasswordHandleFormChange}
+                                handleFormLogout={handleFormLogout}
+                            />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </div>
     )
-
-
 }
 
 export default App;

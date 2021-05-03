@@ -6,7 +6,6 @@ export const Users = ({users}) => {
                 return(
                     <ul key={user.id}>
                         <li>{user.name}</li>
-                        <li>{user.email}</li>
                     </ul>
                 )
             })}

@@ -1,12 +1,20 @@
 import React from 'react';
+import {useHistory} from "react-router-dom";
+
 import "../style.css"
 
 
 const Register = ({
                       handleFormSubmit,
-                      addUser,
-                      addUserEmail, handleFormChange, emailHandleFormChange, addUserPassword, passwordHandleFormChange
+                      name,
+                      email,
+                      password,
+                      handleFormChange,
+                      emailHandleFormChange,
+                      passwordHandleFormChange,
+
                   }) => {
+
     const handleChange = (event) => {
         handleFormChange(event.target.value)
     }
@@ -29,37 +37,36 @@ const Register = ({
         handleFormSubmit()
     }
 
+
     {
         return (
-
             <div className="login">
 
-                    <form onSubmit={handleSubmit}>
-                        <h3>ENTER YOUR DETAILS</h3>
-                        <label>
-                            USERNAME: <input type="text" className="name" value={addUser}
-                                             onChange={handleChange} placeholder="Username"/> <br/>
-                        </label>
-                    </form>
+                <form onSubmit={handleSubmit}>
+                    <h3>ENTER YOUR DETAILS</h3>
+                    <label>
+                        USERNAME: <input type="text" className="name" value={name}
+                                         onChange={handleChange} placeholder="Username"/> <br/>
+                    </label>
+                </form>
 
-                    <form onSubmit={emailHandleSubmit}>
-                        <label>
-                            EMAIL: <input type="email" className="email" value={addUserEmail}
-                                          onChange={emailHandleChange} placeholder="Email"/>
-                            <br/>
+                <form onSubmit={emailHandleSubmit}>
+                    <label>
+                        EMAIL: <input type="email" className="email" value={email}
+                                      onChange={emailHandleChange} placeholder="Email"/>
+                        <br/>
 
-                        </label>
-                    </form>
+                    </label>
+                </form>
 
-                    <form onSubmit={passwordHandleSubmit}>
-                        <label>
-                            PASSWORD: <input type="password" className="password" value={addUserPassword}
-                                             onChange={passwordHandleChange} placeholder="Password"/>
-                            <br/>
-                        </label>
-                        <input type="submit"/>
-                    </form>
-
+                <form onSubmit={passwordHandleSubmit}>
+                    <label>
+                        PASSWORD: <input type="password" className="password" value={password}
+                                         onChange={passwordHandleChange} placeholder="Password"/>
+                        <br/>
+                    </label>
+                    <button type="submit">Register</button>
+                </form>
 
             </div>
 
