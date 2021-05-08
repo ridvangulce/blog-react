@@ -1,15 +1,17 @@
 import React from "react"
+import "../style.css"
+
 export const Users = ({users}) => {
     return (
         <div>
-            {users.map(user => {
-                return(
-                    <ul key={user.id}>
-                        <li>{user.name}</li>
-                    </ul>
-                )
-            })}
+            {users.map(user => (
+                <ul key={user.id}>
+                    <li >
+                        {user.name} / {user.age}
+                    </li>
+                </ul>
+            ))}
         </div>
-
     )
+
 }

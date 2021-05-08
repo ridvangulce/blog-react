@@ -3,7 +3,8 @@ import Register from "./components/Register"
 import "./style.css"
 import {Users} from "./components/Users"
 import Login from "./components/Login"
-import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom"
+import {Pagination} from "./components/Pagination"
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import axios from "axios";
 
 function App() {
@@ -11,10 +12,18 @@ function App() {
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
-    const [users, setUsers] = useState([]);
+    const [age, setAge] = useState('')
     const [checkUser, setCheckUser] = useState('')
     const [checkPassword, setCheckPassword] = useState('')
+    const [users, setUsers] = useState([]);
+    const [currentPage,setCurrentPage] =useState(1)
+    const [usersPerPage]=useState(5)
 
+    //Pagination
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers=users.slice(indexOfFirstUser,indexOfLastUser)
+    const paginate = (pageNumber)=>setCurrentPage(pageNumber)
 
     //Add User
     const handleFormChange = (name) => {
@@ -25,6 +34,9 @@ function App() {
     }
     const passwordHandleFormChange = (password) => {
         setPassword(password)
+    }
+    const ageHandleFormChange = (age) => {
+        setAge(age)
     }
     //Check User
     const checkHandleFormChange = (checkUser) => {
@@ -42,13 +54,14 @@ function App() {
         axios.post('/register', {
             name: name,
             email: email,
-            password: password
+            password: password,
+            age: age
         })
             .then(res => {
                 setName(res.data)
                 setEmail(res.data)
                 setPassword(res.data)
-                latestUser()
+                setAge(res.data)
 
             })
             .then(data => {
@@ -94,15 +107,13 @@ function App() {
 
             })
     }
-
-
-    const latestUser = () => {
+    useEffect(() => {
         axios.get("/api")
             .then(res => {
                 setUsers(res.data)
             });
 
-    }
+    },[])
 
 
     return (
@@ -115,12 +126,15 @@ function App() {
                                 name={name}
                                 email={email}
                                 password={password}
+                                age={age}
                                 handleFormChange={handleFormChange}
                                 emailHandleFormChange={emailHandleFormChange}
                                 passwordHandleFormChange={passwordHandleFormChange}
+                                ageHandleFormChange={ageHandleFormChange}
                                 handleFormSubmit={handleFormSubmit}
                             />
-                            <Users users={users}/>
+                            <Users users={currentUsers}/>
+                            <Pagination usersPerPage={usersPerPage} totalUsers={users.length} paginate={paginate}/>
                         </Route>
                         <Route path="/login" component={Login}>
                             <Login

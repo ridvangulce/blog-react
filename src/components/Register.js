@@ -1,7 +1,4 @@
 import React from 'react';
-import {useHistory} from "react-router-dom";
-
-import "../style.css"
 
 
 const Register = ({
@@ -9,9 +6,11 @@ const Register = ({
                       name,
                       email,
                       password,
+                      age,
                       handleFormChange,
                       emailHandleFormChange,
                       passwordHandleFormChange,
+                      ageHandleFormChange
 
                   }) => {
 
@@ -23,6 +22,9 @@ const Register = ({
     }
     const passwordHandleChange = (event) => {
         passwordHandleFormChange(event.target.value)
+    }
+    const ageHandleChange = (event) => {
+        ageHandleFormChange(event.target.value)
     }
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -36,11 +38,15 @@ const Register = ({
         event.preventDefault()
         handleFormSubmit()
     }
+    const ageHandleSubmit = (event) => {
+        event.preventDefault()
+        handleFormSubmit()
+    }
 
 
     {
         return (
-            <div className="login">
+            <div className="container">
 
                 <form onSubmit={handleSubmit}>
                     <h3>ENTER YOUR DETAILS</h3>
@@ -58,15 +64,22 @@ const Register = ({
 
                     </label>
                 </form>
-
+                <form onSubmit={ageHandleSubmit}>
+                    <label>
+                        AGE: <input className="age" value={age}
+                                    onChange={ageHandleChange} placeholder="Age" type="date"/>
+                        <br/>
+                    </label>
+                </form>
                 <form onSubmit={passwordHandleSubmit}>
                     <label>
                         PASSWORD: <input type="password" className="password" value={password}
                                          onChange={passwordHandleChange} placeholder="Password"/>
                         <br/>
                     </label>
-                    <button type="submit">Register</button>
                 </form>
+                <button type="submit">Register</button>
+
 
             </div>
 

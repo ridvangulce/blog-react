@@ -27,7 +27,7 @@ const Login = ({
     }
     return (
 
-        <div>
+        <div className="container">
             <form onSubmit={handleLogin}>
                 <label>
                     USERNAME:<input type="text" className="name" placeholder="Username"

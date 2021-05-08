@@ -1,0 +1,18 @@
+.paginationButtons{
+    list-style-type:none;
+    display:inline;
+    border-radius: 5px;
+    color:#2b2eff;
+
+}
+.paginationButtons button{
+    padding:10px;
+    margin:8px;
+    border-radius: 5px;
+    border:1px solid #2b2eff;
+    background: white;
+}
+.paginationButtons button:hover {
+    color:white;
+    background-color:#2b2eff;
+}
