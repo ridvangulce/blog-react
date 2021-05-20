@@ -6,18 +6,16 @@ export const Pagination = ({usersPerPage, totalUsers, paginate}) => {
         pageNumbers.push(i)
     }
     return (
-        <div>
+        <div className="container-pagination" >
             <nav>
-                <ul>
                     {pageNumbers.map(number => (
-                        <li key={number} className="paginationButtons">
-                            <button onClick={() => paginate(number)}>
+                        <ul key={number}>
+                            <a onClick={() => paginate(number)}>
                                 {number}
-                            </button>
+                            </a>
 
-                        </li>
+                        </ul>
                     ))}
-                </ul>
 
             </nav>
         </div>

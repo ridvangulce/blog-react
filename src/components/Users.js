@@ -3,7 +3,7 @@ import "../style.css"
 
 export const Users = ({users}) => {
     return (
-        <div>
+        <div className="container-users">
             {users.map(user => (
                 <ul key={user.id}>
                     <li >

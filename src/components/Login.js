@@ -1,17 +1,15 @@
-import React from 'react';
-
+import React, {useEffect} from 'react';
+import {useHistory, withRouter} from "react-router-dom"
 const Login = ({
-                   checkHandleFormChange,
-                   checkPasswordHandleFormChange,
-                   checkUser,
-                   checkPassword, handleFormLogin, handleFormLogout
+                   handleFormChange, passwordHandleFormChange, name, password, checkUser,
+                   checkPassword, handleFormLogin, setAuth, setCheckUser, setCheckPassword,history
                },) => {
 
-    const checkHandleChange = (event) => {
-        checkHandleFormChange(event.target.value)
+    const handleChange = (event) => {
+        handleFormChange(event.target.value)
     }
-    const checkPasswordHandleChange = (event) => {
-        checkPasswordHandleFormChange(event.target.value)
+    const passwordHandleChange = (event) => {
+        passwordHandleFormChange(event.target.value)
     }
     const handleLogin = (event) => {
         event.preventDefault()
@@ -21,44 +19,35 @@ const Login = ({
         event.preventDefault()
         handleFormLogin()
     }
-    const handleLogout = (event) => {
-        event.preventDefault()
-        handleFormLogout()
-    }
-    return (
 
-        <div className="container">
+
+
+    return (
+        <div className="container-login">
+
             <form onSubmit={handleLogin}>
                 <label>
                     USERNAME:<input type="text" className="name" placeholder="Username"
-                                    onChange={checkHandleChange}
-                                    value={checkUser}
+                                    onChange={handleChange}
+                                    value={name}
                 />
                 </label>
             </form>
-
             <form onSubmit={passwordHandleLogin}>
-
                 <label>
                     PASSWORD:<input type="password" className="password" placeholder="Password"
-                                    onChange={checkPasswordHandleChange}
-                                    value={checkPassword}
+                                    onChange={passwordHandleChange}
+                                    value={password}
                 />
                 </label>
                 <br/>
-                <button type="submit">Login</button>
-
+            <button type="submit">Login</button>
             </form>
-            <div>
-                <form onSubmit={handleLogout} method="post">
-                    <button type="submit">Logout</button>
-                </form>
-            </div>
+
 
         </div>
     );
-
-
 }
 
-export default Login;
+
+export default withRouter(Login);

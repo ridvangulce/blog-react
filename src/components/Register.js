@@ -1,4 +1,5 @@
 import React from 'react';
+import "../style.css"
 
 
 const Register = ({
@@ -46,7 +47,7 @@ const Register = ({
 
     {
         return (
-            <div className="container">
+            <div className="container-register">
 
                 <form onSubmit={handleSubmit}>
                     <h3>ENTER YOUR DETAILS</h3>
@@ -78,13 +79,13 @@ const Register = ({
                         <br/>
                     </label>
                 </form>
-                <button type="submit">Register</button>
 
+                <button type="submit">Register</button>
 
             </div>
 
-
-        );
+        )
+            ;
     }
 }
 

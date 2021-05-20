@@ -1,10 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Register from "./components/Register"
 import "./style.css"
-import {Users} from "./components/Users"
 import Login from "./components/Login"
-import {Pagination} from "./components/Pagination"
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import Profile from "./components/Profile"
+import ProtectedRoute from "./components/ProtectedRoute"
+import {BrowserRouter as Router, Switch, Route, useHistory, withRouter} from "react-router-dom"
 import axios from "axios";
 
 function App() {
@@ -15,15 +15,8 @@ function App() {
     const [age, setAge] = useState('')
     const [checkUser, setCheckUser] = useState('')
     const [checkPassword, setCheckPassword] = useState('')
-    const [users, setUsers] = useState([]);
-    const [currentPage,setCurrentPage] =useState(1)
-    const [usersPerPage]=useState(5)
-
-    //Pagination
-    const indexOfLastUser = currentPage * usersPerPage;
-    const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers=users.slice(indexOfFirstUser,indexOfLastUser)
-    const paginate = (pageNumber)=>setCurrentPage(pageNumber)
+    const [auth, setAuth] = useState(false)
+    const history = useHistory();
 
     //Add User
     const handleFormChange = (name) => {
@@ -38,16 +31,9 @@ function App() {
     const ageHandleFormChange = (age) => {
         setAge(age)
     }
-    //Check User
-    const checkHandleFormChange = (checkUser) => {
-        setCheckUser(checkUser)
-    }
-    const checkPasswordHandleFormChange = (checkPassword) => {
-        setCheckPassword(checkPassword)
-    }
 
 
-    const base = axios.create({
+    axios.create({
         baseURL: 'http://localhost:5000'
     })
     const handleFormSubmit = () => {
@@ -74,30 +60,40 @@ function App() {
                 console.log("There is some error !!!!", error)
             })
     }
+    const handleHistory = () => {
+        history.push("/profile")
+        setAuth(true)
+        console.log(setAuth)
+
+    }
+
     const handleFormLogin = () => {
         axios.post('/login', {
-            name: checkUser,
-            password: checkPassword
+            name: name,
+            password: password
         })
             .then(res => {
-                setCheckUser(res.data)
-                setCheckPassword(res.data)
-            })
+                    setCheckUser(res.data)
+                    setCheckPassword(res.data)
+                    if (res.data === "Welcome") {
+                        handleHistory()
+                    }
+                    console.log(res.data)
+
+                }
+            )
             .then(data => {
                     console.log(data)
                     sessionStorage.getItem('2o1£21ıoj2£#31ı12k3130o210*321')
                 }
             )
-
             .catch(error => {
                 console.log("there is some error", error)
             })
-
-
     }
 
     const handleFormLogout = () => {
-        axios.post('/logout')
+        axios.delete('/profile')
             .then(data => {
                     sessionStorage.removeItem('2o1£21ıoj2£#31ı12k3130o210*321')
                 }
@@ -107,19 +103,10 @@ function App() {
 
             })
     }
-    useEffect(() => {
-        axios.get("/api")
-            .then(res => {
-                setUsers(res.data)
-            });
-
-    },[])
 
 
-    return (
-        <div>
-            <Router>
-                <div>
+        return (
+            <div className="container">
                     <Switch>
                         <Route path="/register" component={Register}>
                             <Register
@@ -133,25 +120,25 @@ function App() {
                                 ageHandleFormChange={ageHandleFormChange}
                                 handleFormSubmit={handleFormSubmit}
                             />
-                            <Users users={currentUsers}/>
-                            <Pagination usersPerPage={usersPerPage} totalUsers={users.length} paginate={paginate}/>
                         </Route>
                         <Route path="/login" component={Login}>
                             <Login
+                                handleFormChange={handleFormChange}
+                                passwordHandleFormChange={passwordHandleFormChange}
                                 checkPassword={checkPassword}
                                 checkUser={checkUser}
-                                handleFormSubmit={handleFormSubmit}
                                 handleFormLogin={handleFormLogin}
-                                checkHandleFormChange={checkHandleFormChange}
-                                checkPasswordHandleFormChange={checkPasswordHandleFormChange}
-                                handleFormLogout={handleFormLogout}
+                                setAuth={setAuth} name={name} password={password} history={history}
                             />
                         </Route>
+                        <ProtectedRoute path="/profile" component={Profile}
+                                        auth={auth} setAuth={setAuth} handleFormLogout={handleFormLogout}/>
                     </Switch>
-                </div>
-            </Router>
-        </div>
-    )
+            </div>
+        )
+
 }
 
-export default App;
+export default withRouter(App);
+
+
