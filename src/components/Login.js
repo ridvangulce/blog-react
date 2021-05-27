@@ -1,9 +1,8 @@
-import React, {useEffect} from 'react';
-import {useHistory, withRouter} from "react-router-dom"
-const Login = ({
-                   handleFormChange, passwordHandleFormChange, name, password, checkUser,
-                   checkPassword, handleFormLogin, setAuth, setCheckUser, setCheckPassword,history
-               },) => {
+import React from 'react';
+import {Link, withRouter} from "react-router-dom"
+
+const Login = ({handleFormChange, passwordHandleFormChange, handleFormLogin, name, password}) => {
+
 
     const handleChange = (event) => {
         handleFormChange(event.target.value)
@@ -20,29 +19,33 @@ const Login = ({
         handleFormLogin()
     }
 
-
-
     return (
         <div className="container-login">
 
             <form onSubmit={handleLogin}>
                 <label>
-                    USERNAME:<input type="text" className="name" placeholder="Username"
+                    USERNAME:<input type="text" name="name" placeholder="Username"
                                     onChange={handleChange}
-                                    value={name}
-                />
+                                    value={name}/>
                 </label>
             </form>
             <form onSubmit={passwordHandleLogin}>
                 <label>
-                    PASSWORD:<input type="password" className="password" placeholder="Password"
+                    PASSWORD:<input type="password" name="password" placeholder="Password"
                                     onChange={passwordHandleChange}
                                     value={password}
                 />
                 </label>
                 <br/>
-            <button type="submit">Login</button>
+                <button type="submit" id="button-login">Login</button>
             </form>
+            <div className="menu-bar">
+                <ul>
+                    <li>
+                        <Link to="/register">Register</Link>
+                    </li>
+                </ul>
+            </div>
 
 
         </div>

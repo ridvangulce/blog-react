@@ -3,36 +3,42 @@ import Register from "./components/Register"
 import "./style.css"
 import Login from "./components/Login"
 import Profile from "./components/Profile"
-import ProtectedRoute from "./components/ProtectedRoute"
-import {BrowserRouter as Router, Switch, Route, useHistory, withRouter} from "react-router-dom"
+import {Switch, Route, useHistory, withRouter} from "react-router-dom"
+import PrivateRoute from "./components/PrivateRoute"
 import axios from "axios";
 
 function App() {
-
+    const [checkUser, setCheckUser] = useState('')
+    const [checkPassword, setCheckPassword] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [age, setAge] = useState('')
-    const [checkUser, setCheckUser] = useState('')
-    const [checkPassword, setCheckPassword] = useState('')
-    const [auth, setAuth] = useState(false)
-    const history = useHistory();
+    const [post, setPost] = useState('')
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-    //Add User
     const handleFormChange = (name) => {
         setName(name)
-    }
-    const emailHandleFormChange = (email) => {
-        setEmail(email)
     }
     const passwordHandleFormChange = (password) => {
         setPassword(password)
     }
-    const ageHandleFormChange = (age) => {
-        setAge(age)
+    const history = useHistory();
+
+    function handleHistory() {
+        setIsLoggedIn(true)
+        history.push("/profile")
+        console.log("logout")
     }
 
 
+    const postHandleChange = (event) => {
+        postHandleFormChange(event.target.value)
+    }
+
+    const postHandleFormChange = (post) => {
+        setPost(post)
+    }
     axios.create({
         baseURL: 'http://localhost:5000'
     })
@@ -52,19 +58,14 @@ function App() {
             })
             .then(data => {
                 console.log(data)
-                sessionStorage.setItem("token", "2o1£21ıoj2£#31ı12k3130o210*321")
+                sessionStorage.setItem("key", "user",)
+                console.log(sessionStorage.setItem)
 
             })
 
             .catch(error => {
                 console.log("There is some error !!!!", error)
             })
-    }
-    const handleHistory = () => {
-        history.push("/profile")
-        setAuth(true)
-        console.log(setAuth)
-
     }
 
     const handleFormLogin = () => {
@@ -78,66 +79,46 @@ function App() {
                     if (res.data === "Welcome") {
                         handleHistory()
                     }
-                    console.log(res.data)
-
                 }
             )
             .then(data => {
-                    console.log(data)
-                    sessionStorage.getItem('2o1£21ıoj2£#31ı12k3130o210*321')
+                    sessionStorage.getItem('user')
                 }
             )
             .catch(error => {
                 console.log("there is some error", error)
             })
     }
-
-    const handleFormLogout = () => {
-        axios.delete('/profile')
-            .then(data => {
-                    sessionStorage.removeItem('2o1£21ıoj2£#31ı12k3130o210*321')
+    useEffect(() => {
+        axios.get('/profile')
+            .then(res => {
+                if (res.data === "same_session") {
+                    handleHistory()
                 }
-            )
-            .catch(error => {
-                console.log("there is some error", error)
-
             })
-    }
+    }, [])
+    return (
+        <div className="container">
+            <Switch>
+                <Route path="/register" component={Register}>
+                    <Register handleFormSubmit={handleFormSubmit}/>
+                </Route>
+                <Route path="/login" component={Login}>
+                    <Login setIsLoggedIn={setIsLoggedIn} handleFormChange={handleFormChange}
+                           passwordHandleFormChange={passwordHandleFormChange} handleFormLogin={handleFormLogin}
+                           name={name} password={password} handleHistory={handleHistory}
+                    />
+                </Route>
+                <PrivateRoute exact path="/profile" component={Profile} isAuthenticated={isLoggedIn}/>
+                <Profile post={post}
+                         postHandleChange={postHandleChange} setIsLoggedIn={setIsLoggedIn}
+                />
 
-
-        return (
-            <div className="container">
-                    <Switch>
-                        <Route path="/register" component={Register}>
-                            <Register
-                                name={name}
-                                email={email}
-                                password={password}
-                                age={age}
-                                handleFormChange={handleFormChange}
-                                emailHandleFormChange={emailHandleFormChange}
-                                passwordHandleFormChange={passwordHandleFormChange}
-                                ageHandleFormChange={ageHandleFormChange}
-                                handleFormSubmit={handleFormSubmit}
-                            />
-                        </Route>
-                        <Route path="/login" component={Login}>
-                            <Login
-                                handleFormChange={handleFormChange}
-                                passwordHandleFormChange={passwordHandleFormChange}
-                                checkPassword={checkPassword}
-                                checkUser={checkUser}
-                                handleFormLogin={handleFormLogin}
-                                setAuth={setAuth} name={name} password={password} history={history}
-                            />
-                        </Route>
-                        <ProtectedRoute path="/profile" component={Profile}
-                                        auth={auth} setAuth={setAuth} handleFormLogout={handleFormLogout}/>
-                    </Switch>
-            </div>
-        )
-
+            </Switch>
+        </div>
+    )
 }
+
 
 export default withRouter(App);
 

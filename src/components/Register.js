@@ -1,5 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../style.css"
+import {Link} from "react-router-dom";
+
 
 
 const Register = ({
@@ -15,8 +17,10 @@ const Register = ({
 
                   }) => {
 
+
     const handleChange = (event) => {
         handleFormChange(event.target.value)
+
     }
     const emailHandleChange = (event) => {
         emailHandleFormChange(event.target.value)
@@ -48,18 +52,16 @@ const Register = ({
     {
         return (
             <div className="container-register">
-
                 <form onSubmit={handleSubmit}>
                     <h3>ENTER YOUR DETAILS</h3>
                     <label>
-                        USERNAME: <input type="text" className="name" value={name}
+                        USERNAME: <input type="text" name="name" value={name}
                                          onChange={handleChange} placeholder="Username"/> <br/>
                     </label>
                 </form>
-
                 <form onSubmit={emailHandleSubmit}>
                     <label>
-                        EMAIL: <input type="email" className="email" value={email}
+                        EMAIL: <input type="email" name="email" value={email}
                                       onChange={emailHandleChange} placeholder="Email"/>
                         <br/>
 
@@ -67,20 +69,28 @@ const Register = ({
                 </form>
                 <form onSubmit={ageHandleSubmit}>
                     <label>
-                        AGE: <input className="age" value={age}
+                        AGE: <input name="age" value={age}
                                     onChange={ageHandleChange} placeholder="Age" type="date"/>
                         <br/>
                     </label>
                 </form>
                 <form onSubmit={passwordHandleSubmit}>
                     <label>
-                        PASSWORD: <input type="password" className="password" value={password}
+                        PASSWORD: <input type="password" name="password" value={password}
                                          onChange={passwordHandleChange} placeholder="Password"/>
                         <br/>
                     </label>
                 </form>
 
                 <button type="submit">Register</button>
+                <div className="menu-bar">
+                    <ul>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                    </ul>
+
+                </div>
 
             </div>
 

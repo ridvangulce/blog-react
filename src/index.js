@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import App from "./App"
 
 const renderApp =
-    <Router>
+    <Router >
         <Switch>
             <App/>
         </Switch>
