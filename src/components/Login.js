@@ -1,5 +1,9 @@
 import React from 'react';
 import {Link, withRouter} from "react-router-dom"
+import GoogleLogin from 'react-google-login';
+import {RiLockPasswordFill} from "react-icons/ri"
+import {FaUserAlt} from "react-icons/fa"
+import {AiOutlineEnter} from "react-icons/ai"
 
 const Login = ({handleFormChange, passwordHandleFormChange, handleFormLogin, name, password}) => {
 
@@ -18,35 +22,53 @@ const Login = ({handleFormChange, passwordHandleFormChange, handleFormLogin, nam
         event.preventDefault()
         handleFormLogin()
     }
+    const responseGoogle = (response) => {
+        console.log(response);
+    }
 
     return (
-        <div className="container-login">
+        <div id="container-login">
 
-            <form onSubmit={handleLogin}>
-                <label>
-                    USERNAME:<input type="text" name="name" placeholder="Username"
-                                    onChange={handleChange}
-                                    value={name}/>
-                </label>
-            </form>
-            <form onSubmit={passwordHandleLogin}>
-                <label>
-                    PASSWORD:<input type="password" name="password" placeholder="Password"
-                                    onChange={passwordHandleChange}
-                                    value={password}
-                />
-                </label>
-                <br/>
-                <button type="submit" id="button-login">Login</button>
-            </form>
-            <div className="menu-bar">
-                <ul>
-                    <li>
+            <div id="container-login-form">
+
+                <div id="container-login-form-name">
+                    <form onSubmit={handleLogin}>
+                        <label>
+                            <input type="text" name="name" placeholder="Username"
+                                   onChange={handleChange}
+                                   value={name}/>
+                        </label>
+                        <FaUserAlt className="icon-user"/>
+                    </form>
+                </div>
+                <div id="container-form-login-password">
+                    <form onSubmit={passwordHandleLogin}>
+                        <label>
+                            <input type="password" name="password"
+                                   placeholder="Password"
+                                   onChange={passwordHandleChange}
+                                   value={password}
+                            />
+                            <RiLockPasswordFill className="icon-password"/>
+                        </label>
+                        <br/>
+                        <button type="submit" id="button-login"> Login</button>
+
+                        <GoogleLogin clientId="217098860735-k3onvcs6enc0hu6jgigcl4tn9njt5hkr.apps.googleusercontent.com"
+                                     buttonText="Login"
+                                     onSuccess={responseGoogle}
+                                     onFailure={responseGoogle}
+                                     cookiePolicy="single_host"
+                                     isSignedIn={true}
+                        >Login</GoogleLogin>
+                    </form>
+
+                    <div className="link">
                         <Link to="/register">Register</Link>
-                    </li>
-                </ul>
-            </div>
+                    </div>
+                </div>
 
+            </div>
 
         </div>
     );

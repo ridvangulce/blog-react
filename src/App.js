@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import Register from "./components/Register"
 import "./style.css"
 import Login from "./components/Login"
-import Profile from "./components/Profile"
+import Home from "./components/Home"
 import {Switch, Route, useHistory, withRouter} from "react-router-dom"
 import PrivateRoute from "./components/PrivateRoute"
 import axios from "axios";
+import GoogleLogin from "react-google-login";
 
 function App() {
     const [checkUser, setCheckUser] = useState('')
@@ -27,10 +28,8 @@ function App() {
 
     function handleHistory() {
         setIsLoggedIn(true)
-        history.push("/profile")
-        console.log("logout")
+        history.push("/home")
     }
-
 
     const postHandleChange = (event) => {
         postHandleFormChange(event.target.value)
@@ -90,15 +89,16 @@ function App() {
             })
     }
     useEffect(() => {
-        axios.get('/profile')
+        axios.get('/home')
             .then(res => {
                 if (res.data === "same_session") {
                     handleHistory()
                 }
             })
     }, [])
+
     return (
-        <div className="container">
+        <div id="container">
             <Switch>
                 <Route path="/register" component={Register}>
                     <Register handleFormSubmit={handleFormSubmit}/>
@@ -109,11 +109,7 @@ function App() {
                            name={name} password={password} handleHistory={handleHistory}
                     />
                 </Route>
-                <PrivateRoute exact path="/profile" component={Profile} isAuthenticated={isLoggedIn}/>
-                <Profile post={post}
-                         postHandleChange={postHandleChange} setIsLoggedIn={setIsLoggedIn}
-                />
-
+                <PrivateRoute exact path="/home" component={Home} isAuthenticated={isLoggedIn}/>
             </Switch>
         </div>
     )

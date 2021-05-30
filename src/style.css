@@ -1,0 +1,390 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    background: black;
+}
+
+#container-register{
+    display: grid;
+    grid-template: 700px/300px;
+    align-items: center;
+    position: relative;
+}
+#container-register form{
+    margin-left: 20px;
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+#container-register form label input{
+    width: 200px;
+    height: 30px;
+    background: #1f1f24;
+    border:1px solid #1f1f24;
+    margin:2px;
+}
+#button-register{
+    margin-left: 35px;
+
+}
+#container-login {
+    display: grid;
+    grid-template: 700px/300px;
+    align-items: center;
+    position: relative;
+}
+
+#container-login-form {
+    margin: 50px;
+    grid-row: 1/2;
+    grid-column: 2/3;
+}
+
+#container-login form label input {
+    background: #1f1f24;
+    width: 200px;
+    height: 30px;
+    border:1px solid #1f1f24;
+    margin:2px;
+}
+
+
+#container-home {
+    display: grid;
+    grid-template: 300px 200px/150px 4fr 1fr;
+
+}
+
+#container-sidebar {
+    display: grid;
+    margin-left: 30px;
+}
+
+#container-home-post {
+    margin: 30px;
+}
+
+#container-home-post span {
+    border-bottom:1px solid #2F3336;
+    font-size: 30px;
+    padding: 20px;
+    margin: 60px;
+    transition: .7s;
+}
+
+#container-home-post span:hover {
+    background: #1991DA;
+    border: 1px solid gray;
+    border-radius: 30px;
+}
+
+#container-home-post form label input {
+    border:1px solid transparent;
+    margin-top: 20px;
+    width: 100%;
+    height: 100px;
+    background: transparent;
+    font-size: 20px;
+}
+
+#container-home-post form button {
+    margin: 10px;
+    float: right;
+    width: 100px;
+    height: 40px;
+    border: 1px solid #1991DA;
+    border-radius: 40px;
+    background: #1991DA;
+    font-size: 20px;
+    text-align: center;
+    transition: .7s;
+}
+
+#container-home-post form button:hover {
+    background: transparent;
+    color: #1991DA;
+}
+.container-home-post-icon{
+    border-top:1px solid #2F3336;
+}
+
+#container-posts {
+    grid-row: 2/4;
+    grid-column: 2/3;
+
+}
+
+#container-sidebar-icon {
+    width: 50px;
+    height: 50px;
+}
+
+#container-posts ul li {
+    border: 1px solid #2F3336;
+    padding: 50px;
+}
+
+#container-home-logout {
+    margin-top: 100px;
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+}
+
+#container-home-logout form button {
+
+    border: 1px solid #da1956;
+    margin-left: 20px;
+    width: 80px;
+    height: 30px;
+    background: transparent;
+    border-radius: 30px;
+    transition: .7s;
+}
+
+#container-home-logout form button:hover {
+    background: #da1956;
+}
+
+.icon-mountain {
+    margin-top: 20px;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    letter-spacing: 1px;
+}
+
+.icon-smile {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-survey {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-gif {
+    width: 30px;
+    height: 30px;
+}
+
+.icon-user {
+}
+
+.icon-password {
+}
+
+.icon-home {
+    margin-top: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-home:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+    width: 35px;
+    height: 35px;
+}
+
+
+.icon-notifications {
+    margin-top: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-notifications:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+    width: 35px;
+    height: 35px;
+}
+
+.icon-message {
+    margin-top: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-message:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+    width: 35px;
+    height: 35px;
+}
+
+.icon-hashtag {
+
+    margin-top: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-hashtag:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+    width: 35px;
+    height: 35px;
+}
+
+.icon-profile {
+    margin-top: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-profile:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+    width: 35px;
+    height: 35px;
+}
+
+.icon-heart {
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-heart:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+}
+
+.icon-comment {
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-comment:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+}
+
+.icon-retweet {
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-retweet:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+}
+
+.icon-share {
+    margin-left: 20px;
+    width: 25px;
+    height: 25px;
+}
+
+.icon-share:hover {
+    border: 1px solid #470b0b;
+    border-radius: 35px;
+}
+
+#button-login {
+    border: 2px solid rgba(49, 105, 198, 0.55);
+    border-radius: 4px;
+    width: 205px;
+    height: 40px;
+    transition: .7s;
+    background: rgba(49, 105, 198, 0.55);
+}
+
+#button-login:hover {
+    color: rgba(49, 105, 198, 0.55);
+    background: transparent;
+}
+
+#button-register {
+    border: 2px solid rgba(49, 105, 198, 0.55);
+    border-radius: 4px;
+    width: 205px;
+    height: 40px;
+    transition: .7s;
+    background: rgba(49, 105, 198, 0.55);
+}
+
+#button-register:hover {
+    color: rgba(49, 105, 198, 0.55);
+    background: transparent;
+}
+
+.link{
+    text-align: center;
+    margin-left: 70px;
+    margin-top: 10px;
+    width: 63px;
+    height: 20px;
+    grid-row: 2/3;
+    grid-column: 2/3;
+    border: 1px solid gray;
+    border-radius: 4px;
+    background: rgba(196, 196, 217, 0.5);
+    color: white;
+}
+
+a {
+    color: black;
+    transition: .5s
+}
+
+a:hover {
+    color: white;
+}
+
+@media all and (max-width: 600px) {
+    html {
+        background: black;
+    }
+
+    #container-home {
+        display: grid;
+        grid-template: 50px/1px;
+        position: relative;
+        align-items: center;
+
+    }
+
+    #container-sidebar-icon {
+        display: none;
+    }
+
+    #container-posts {
+        margin-top: 200px;
+
+    }
+
+    #container-home-logout {
+        display: none;
+    }
+
+    #container-home-post {
+        margin-top: 300px;
+    }
+
+    #container-home-post span {
+        font-size: 25px;
+
+    }
+
+    #container-login {
+        align-items: center;
+        display: grid;
+        grid-template: 500px/1px;
+        position: relative;
+    }
+
+
+}
+

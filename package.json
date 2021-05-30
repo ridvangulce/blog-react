@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-icons/all-files": "^4.1.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
     "axios": "^0.21.1",
+    "emoji-picker-react": "^3.4.6",
     "js-cookie": "^2.2.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-google-login": "^5.2.2",
+    "react-icons": "^4.2.0",
+    "react-media": "^1.10.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.2",
@@ -53,7 +58,6 @@
     ]
   },
   "devDependencies": {
-
     "eslint-plugin-react-hooks": "^4.2.0",
     "prop-types": "^15.7.2",
     "react-redux": "^7.2.3"

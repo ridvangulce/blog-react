@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 import "../style.css"
 import {Link} from "react-router-dom";
-
+import {RiLockPasswordFill} from "react-icons/ri";
+import {FaUserAlt} from "react-icons/fa";
+import {AiOutlineMail} from "react-icons/ai"
+import {MdDateRange} from "react-icons/md"
+import GoogleLogin from "react-google-login";
 
 
 const Register = ({
@@ -48,51 +52,67 @@ const Register = ({
         handleFormSubmit()
     }
 
-
+    const responseGoogle = (response) => {
+        console.log(response);
+    }
     {
         return (
-            <div className="container-register">
-                <form onSubmit={handleSubmit}>
-                    <h3>ENTER YOUR DETAILS</h3>
-                    <label>
-                        USERNAME: <input type="text" name="name" value={name}
-                                         onChange={handleChange} placeholder="Username"/> <br/>
-                    </label>
-                </form>
-                <form onSubmit={emailHandleSubmit}>
-                    <label>
-                        EMAIL: <input type="email" name="email" value={email}
-                                      onChange={emailHandleChange} placeholder="Email"/>
-                        <br/>
+            <div id="container-register">
+                <form action="">
 
-                    </label>
-                </form>
-                <form onSubmit={ageHandleSubmit}>
-                    <label>
-                        AGE: <input name="age" value={age}
-                                    onChange={ageHandleChange} placeholder="Age" type="date"/>
-                        <br/>
-                    </label>
-                </form>
-                <form onSubmit={passwordHandleSubmit}>
-                    <label>
-                        PASSWORD: <input type="password" name="password" value={password}
-                                         onChange={passwordHandleChange} placeholder="Password"/>
-                        <br/>
-                    </label>
+                    <form onSubmit={handleSubmit}>
+                        <h3>ENTER YOUR DETAILS</h3>
+                        <label>
+                            <FaUserAlt className="icon-user"/>
+                            <input type="text" name="name" value={name}
+                                   onChange={handleChange} placeholder="Username"/> <br/>
+                        </label>
+                    </form>
+                    <form onSubmit={emailHandleSubmit}>
+                        <label>
+                            <AiOutlineMail/>
+                            <input type="email" name="email" value={email}
+                                   onChange={emailHandleChange} placeholder="Email"/>
+                            <br/>
+
+                        </label>
+                    </form>
+                    <form onSubmit={ageHandleSubmit}>
+                        <label>
+                            <MdDateRange/>
+                            <input name="age" id="age" value={age}
+                                   onChange={ageHandleChange} placeholder="Age" type="date"/>
+                            <br/>
+                        </label>
+                    </form>
+                    <form onSubmit={passwordHandleSubmit}>
+                        <label>
+                            <RiLockPasswordFill className="icon-password"/>
+                            <input type="password" name="password" value={password}
+                                   onChange={passwordHandleChange} placeholder="Password"/>
+                            <br/>
+                        </label>
+                    </form>
+
+                    <button type="submit" id="button-register">Register</button>
+                    <div className="link">
+                        <ul>
+                            <li>
+                                <Link to="/login">Login</Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <GoogleLogin clientId="217098860735-k3onvcs6enc0hu6jgigcl4tn9njt5hkr.apps.googleusercontent.com"
+                                 buttonText="Login"
+                                 onSuccess={responseGoogle}
+                                 onFailure={responseGoogle}
+                                 cookiePolicy="single_host"
+                    />
                 </form>
 
-                <button type="submit">Register</button>
-                <div className="menu-bar">
-                    <ul>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                    </ul>
-
-                </div>
 
             </div>
+
 
         )
             ;
